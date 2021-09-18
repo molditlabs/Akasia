@@ -1,0 +1,24 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Akasia/v16
+/.vs
+/src/01-Domain/Akasia.Domain/obj
+/src/02-Application/Akasia.Application/obj
+/src/03-Services/Akasia.Services/obj
+/src/01-Domain/Akasia.Domain/bin/Debug/netstandard2.1
+/src/03-Services/Akasia.Services/bin/Debug/netstandard2.1
+/src/04-Infra/Akasia.Infra/obj
+/src/04-Infra/Akasia.Infra/bin/Debug/netstandard2.1
+/src/04-Infra/Akasia.SQL/bin/Debug
+/src/04-Infra/Akasia.SQL/obj/Debug
+/src/05-API/Akasia.Grpc/obj
+/src/05-API/Akasia.Grpc/bin/Debug/net5.0
+/src/06-UI/Akasia.BlazorUI/bin/Debug/net5.0
+/src/07-Test/Akasia.Test/bin/Debug/net5.0
+/src/07-Test/Akasia.Test/obj
+/src/Security/Akasia.Security/obj
+/src/06-UI/Akasia.BlazorUI/obj
+/src/Security/Akasia.Security/bin/Debug/net5.0
+/src/02-Application/Akasia.Application/bin/Debug/netstandard2.1
