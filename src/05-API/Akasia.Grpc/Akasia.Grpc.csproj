@@ -10,6 +10,14 @@
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\04-Infra\Akasia.Infra\Akasia.Infra.csproj" />
   </ItemGroup>
 
 </Project>
