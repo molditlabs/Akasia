@@ -21,7 +21,10 @@
 /src/Security/Akasia.Security/obj
 /src/06-UI/Akasia.BlazorUI/obj
 /src/Security/Akasia.Security/bin/Debug/net5.0
+/src/Security/Akasia.Security/appsettings.Development.json
 /src/02-Application/Akasia.Application/bin/Debug/netstandard2.1
 /src/07-Test/Akasia.ConsoleTest/bin/Debug/net5.0
 /src/07-Test/Akasia.ConsoleTest/obj
 /src/07-Test/Akasia.XUnitTest/obj
+/src/07-Test/Akasia.XUnitTest/bin/Debug/net5.0
+
