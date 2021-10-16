@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Akasia.Infra.Migrations
+namespace Akasia.Infra.Data.Migrations
 {
     public partial class AddPostTable : Migration
     {

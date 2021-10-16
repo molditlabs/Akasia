@@ -4,16 +4,14 @@ using Akasia.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Akasia.Infra.Migrations
+namespace Akasia.Infra.Data.Migrations
 {
     [DbContext(typeof(AkasiaDbContext))]
-    [Migration("20211009030357_AddPostTable")]
-    partial class AddPostTable
+    partial class AkasiaDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
