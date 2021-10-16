@@ -1,4 +1,6 @@
-﻿using Akasia.Infra.Data.Contexts;
+﻿using Akasia.Grpc.Services;
+using Akasia.Infra.Data.Contexts;
+using Akasia.Infra.Respository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -31,6 +33,8 @@ namespace Akasia.Grpc
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddScoped<IBlogPostTemporaryRepository, BlogPostTemporaryRepository>();
+
             services.AddGrpc();
         }
 
@@ -47,6 +51,7 @@ namespace Akasia.Grpc
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<BlogPostService>();
 
                 endpoints.MapGet("/", async context =>
                 {
