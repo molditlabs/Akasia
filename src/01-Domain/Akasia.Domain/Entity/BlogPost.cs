@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Akasia.Domain.Entity
 {
-    public class Post : BaseModel
+    public class BlogPost : BaseModel
     {
         public string Title { get; set; }
         public string Content { get; set; }

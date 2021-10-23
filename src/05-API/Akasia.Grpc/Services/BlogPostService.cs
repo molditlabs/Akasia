@@ -1,6 +1,7 @@
 ﻿
+using Akasia.Application.DTO;
+using Akasia.Application.Service;
 using Akasia.Domain.Entity;
-using Akasia.Infra.Respository;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,30 +11,30 @@ using System.Threading.Tasks;
 
 namespace Akasia.Grpc.Services
 {
-    public class BlogPostService : BlogPost.BlogPostBase
+    public class BlogPostService : BlogPostEndpoint.BlogPostEndpointBase
     {
         private readonly ILogger<BlogPostService> _logger;
-        private IBlogPostTemporaryRepository _blogPostTemporaryRepository;
-        public BlogPostService(ILogger<BlogPostService> logger, IBlogPostTemporaryRepository blogPostTemporaryRepository)
+        private IBlogPostAppService _blogPostService;
+        public BlogPostService(ILogger<BlogPostService> logger, IBlogPostAppService blogPostService)
         {
             _logger = logger;
-            _blogPostTemporaryRepository = blogPostTemporaryRepository;
+            _blogPostService = blogPostService;
         }
 
-        public override Task<BlogPostReply> SavePost(BlogPostRequest request, ServerCallContext context)
+        public async override Task<CreateBlogPostResponse> CreateBlogPost(CreateBlogPostRequest request, ServerCallContext context)
         {
-            var newPost = new Post {
+            var newPost = new CreateBlogPostRequestDTO
+            {
                 Title = request.Title,
                 Content = request.Content
             };
 
-            var newId = _blogPostTemporaryRepository.SaveBlogPostTemporary(newPost);
+            var newId = await _blogPostService.CreateAsync(newPost);
 
-            return Task.FromResult(new BlogPostReply
+            return new CreateBlogPostResponse
             {
-                Message = @$"Saved Blog Post {request.Title} with ID [{newId}]",
-                NewBlogId = newId,
-            });
+                NewId = newId,
+            };
         }
     }
 }

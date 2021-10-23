@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\01-Domain\Akasia.Domain\Akasia.Domain.csproj" />
+    <ProjectReference Include="..\..\02-Application\Akasia.Application\Akasia.Application.csproj" />
   </ItemGroup>
 
 </Project>

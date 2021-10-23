@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\02-Application\Akasia.Application\Akasia.Application.csproj" />
+    <ProjectReference Include="..\..\03-Services\Akasia.Services\Akasia.Services.csproj" />
     <ProjectReference Include="..\..\04-Infra\Akasia.Infra\Akasia.Infra.csproj" />
   </ItemGroup>
 

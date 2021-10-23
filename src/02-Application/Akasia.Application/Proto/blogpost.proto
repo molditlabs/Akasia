@@ -4,21 +4,17 @@ option csharp_namespace = "Akasia.Grpc";
 
 package blogpost;
 
-// The Blog Post service definition.
-service BlogPost {
-  // Sends a Save Blog Post
-  rpc SavePost (BlogPostRequest) returns (BlogPostReply);
+
+service BlogPostEndpoint {
+  rpc CreateBlogPost (CreateBlogPostRequest) returns (CreateBlogPostResponse);
 }
 
-// The request message containing the user's name.
-message BlogPostRequest {
-  string Title = 1;
-  string Content = 2;
+message CreateBlogPostRequest {
+  string title = 1;
+  string content = 2;
 }
 
-// The response message containing the greetings.
-message BlogPostReply {
-  string message = 1;
-  int32 newBlogId = 2;
+message CreateBlogPostResponse {
+  int32 newId = 1;
 }
 

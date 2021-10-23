@@ -7,11 +7,11 @@ using System.Text;
 
 namespace Akasia.Infra.Data.Configurations
 {
-    public class PostModelConfiguration : IEntityTypeConfiguration<Post>
+    public class BlogPostModelConfiguration : IEntityTypeConfiguration<BlogPost>
     {
-        public void Configure(EntityTypeBuilder<Post> builder)
+        public void Configure(EntityTypeBuilder<BlogPost> builder)
         {
-            builder.ToTable("Post");
+            builder.ToTable("BlogPost");
 
             builder.HasKey(o => o.Id);
 
