@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\blogpost.proto" GrpcServices="Server" />
+    <Protobuf Include="..\..\02-Application\Akasia.Application\Proto\blogpost.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>

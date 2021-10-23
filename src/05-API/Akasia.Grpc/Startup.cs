@@ -50,7 +50,6 @@ namespace Akasia.Grpc
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
                 endpoints.MapGrpcService<BlogPostService>();
 
                 endpoints.MapGet("/", async context =>
