@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option csharp_namespace = "Akasia.Grpc";
+
+package blogpost;
+
+
+service BlogPostEndpoint {
+  rpc CreateBlogPost (CreateBlogPostRequest) returns (CreateBlogPostResponse);
+}
+
+message CreateBlogPostRequest {
+  string title = 1;
+  string content = 2;
+}
+
+message CreateBlogPostResponse {
+  int32 newId = 1;
+}
+

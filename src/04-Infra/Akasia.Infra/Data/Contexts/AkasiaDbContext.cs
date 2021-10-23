@@ -14,12 +14,12 @@ namespace Akasia.Infra.Data.Contexts
         {
 
         }
-        public DbSet<Post> Post { get; set; }
+        public DbSet<BlogPost> Post { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            new PostModelConfiguration().Configure(modelBuilder.Entity<Post>());
+            new BlogPostModelConfiguration().Configure(modelBuilder.Entity<BlogPost>());
         }
     
     }

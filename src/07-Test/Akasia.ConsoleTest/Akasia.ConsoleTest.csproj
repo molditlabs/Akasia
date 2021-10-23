@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -15,7 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\blogpost.proto" GrpcServices="Client" />
+    <ProjectReference Include="..\..\01-Domain\Akasia.Domain\Akasia.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\..\02-Application\Akasia.Application\Proto\blogpost.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>

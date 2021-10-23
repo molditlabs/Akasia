@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Akasia.Application.Repository
 {
-    public interface IPostRepository : IBaseRepository<Post>
+    public interface IBlogPostRepository : IBaseRepository<BlogPost>
     {
 
     }

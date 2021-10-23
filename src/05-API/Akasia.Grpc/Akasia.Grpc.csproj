@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\blogpost.proto" GrpcServices="Server" />
+    <Protobuf Include="..\..\02-Application\Akasia.Application\Proto\blogpost.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\02-Application\Akasia.Application\Akasia.Application.csproj" />
+    <ProjectReference Include="..\..\03-Services\Akasia.Services\Akasia.Services.csproj" />
     <ProjectReference Include="..\..\04-Infra\Akasia.Infra\Akasia.Infra.csproj" />
   </ItemGroup>
 

@@ -8,7 +8,9 @@ namespace Akasia.Application.Repository
     public interface IBaseRepository<T> where T : class
     {
         // Transaction
-        Task AddAsync(T entity);
+        Task CreateAsync(T entity);
+        Task ReadAsync();
+        Task ReadByIdAsync(int id);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
 
