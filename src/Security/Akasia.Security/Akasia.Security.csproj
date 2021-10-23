@@ -5,6 +5,43 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\lib\adminlte\dist\css\adminlte.css.map" />
+    <None Include="wwwroot\lib\adminlte\dist\css\adminlte.min.css.map" />
+    <None Include="wwwroot\lib\adminlte\dist\css\alt\adminlte.components.css.map" />
+    <None Include="wwwroot\lib\adminlte\dist\css\alt\adminlte.components.min.css.map" />
+    <None Include="wwwroot\lib\adminlte\dist\css\alt\adminlte.core.css.map" />
+    <None Include="wwwroot\lib\adminlte\dist\css\alt\adminlte.core.min.css.map" />
+    <None Include="wwwroot\lib\adminlte\dist\css\alt\adminlte.extra-components.css.map" />
+    <None Include="wwwroot\lib\adminlte\dist\css\alt\adminlte.extra-components.min.css.map" />
+    <None Include="wwwroot\lib\adminlte\dist\css\alt\adminlte.pages.css.map" />
+    <None Include="wwwroot\lib\adminlte\dist\css\alt\adminlte.pages.min.css.map" />
+    <None Include="wwwroot\lib\adminlte\dist\css\alt\adminlte.plugins.css.map" />
+    <None Include="wwwroot\lib\adminlte\dist\css\alt\adminlte.plugins.min.css.map" />
+    <None Include="wwwroot\lib\adminlte\dist\js\adminlte.js" />
+    <None Include="wwwroot\lib\adminlte\dist\js\adminlte.js.map" />
+    <None Include="wwwroot\lib\adminlte\dist\js\adminlte.min.js" />
+    <None Include="wwwroot\lib\adminlte\dist\js\adminlte.min.js.map" />
+    <None Include="wwwroot\lib\adminlte\dist\js\demo.js" />
+    <None Include="wwwroot\lib\adminlte\dist\js\pages\dashboard.js" />
+    <None Include="wwwroot\lib\adminlte\dist\js\pages\dashboard2.js" />
+    <None Include="wwwroot\lib\adminlte\dist\js\pages\dashboard3.js" />
+    <None Include="wwwroot\lib\bootstrap\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\lib\bootstrap\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\lib\bootstrap\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\lib\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\lib\bootstrap\js\bootstrap.js.map" />
+    <None Include="wwwroot\lib\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\bootstrap\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\lib\jquery\jquery.js" />
+    <None Include="wwwroot\lib\jquery\jquery.min.js" />
+    <None Include="wwwroot\lib\jquery\jquery.min.map" />
+    <None Include="wwwroot\lib\jquery\jquery.slim.js" />
+    <None Include="wwwroot\lib\jquery\jquery.slim.min.js" />
+    <None Include="wwwroot\lib\jquery\jquery.slim.min.map" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="IdentityServer4" Version="4.1.2" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="4.1.2" />
