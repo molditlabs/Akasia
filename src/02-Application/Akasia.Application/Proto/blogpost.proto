@@ -2,19 +2,32 @@ syntax = "proto3";
 
 option csharp_namespace = "Akasia.Grpc";
 
+import "google/protobuf/empty.proto";
+
 package blogpost;
 
 
 service BlogPostEndpoint {
-  rpc CreateBlogPost (CreateBlogPostRequest) returns (CreateBlogPostResponse);
+	rpc CreateBlogPost (CreateBlogPostRequest) returns (CreateBlogPostResponse);
+	rpc ReadBlogPost (google.protobuf.Empty) returns (ReadBlogPostResponse);
+	rpc ReadBlogPostStream (google.protobuf.Empty) returns (stream BlogPostObject);
 }
 
 message CreateBlogPostRequest {
-  string title = 1;
-  string content = 2;
+	string title = 1;
+	string content = 2;
 }
 
 message CreateBlogPostResponse {
-  int32 newId = 1;
+	int32 newId = 1;
+}
+
+message ReadBlogPostResponse {
+	repeated BlogPostObject blogPostObject = 1;
+}
+
+message BlogPostObject {
+	string title = 1;
+	string content = 2;
 }
 

@@ -35,13 +35,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Security", "Security", "{69
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Akasia.Security", "src\Security\Akasia.Security\Akasia.Security.csproj", "{056D6487-F7E4-4EB3-92E6-55382C2A1FB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akasia.XUnitTest", "src\07-Test\Akasia.XUnitTest\Akasia.XUnitTest.csproj", "{0E010C1E-19C1-4C2A-8656-AB1094B81F0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Akasia.XUnitTest", "src\07-Test\Akasia.XUnitTest\Akasia.XUnitTest.csproj", "{0E010C1E-19C1-4C2A-8656-AB1094B81F0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akasia.ConsoleTest", "src\07-Test\Akasia.ConsoleTest\Akasia.ConsoleTest.csproj", "{26A1958F-18BF-4E88-84D8-43C19D92A13E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Akasia.ConsoleTest", "src\07-Test\Akasia.ConsoleTest\Akasia.ConsoleTest.csproj", "{26A1958F-18BF-4E88-84D8-43C19D92A13E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6297DFF2-7931-4DFF-A791-0AC84901925D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{2FB00FAD-4407-4E41-93B2-B07BA754B916}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Akasia.SQL", "src\04-Infra\Akasia.SQL\Akasia.SQL.sqlproj", "{BF6CA9BF-B3AC-439D-BAF4-C6B9187227F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +91,12 @@ Global
 		{26A1958F-18BF-4E88-84D8-43C19D92A13E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26A1958F-18BF-4E88-84D8-43C19D92A13E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26A1958F-18BF-4E88-84D8-43C19D92A13E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF6CA9BF-B3AC-439D-BAF4-C6B9187227F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF6CA9BF-B3AC-439D-BAF4-C6B9187227F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF6CA9BF-B3AC-439D-BAF4-C6B9187227F6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BF6CA9BF-B3AC-439D-BAF4-C6B9187227F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF6CA9BF-B3AC-439D-BAF4-C6B9187227F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF6CA9BF-B3AC-439D-BAF4-C6B9187227F6}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +120,7 @@ Global
 		{056D6487-F7E4-4EB3-92E6-55382C2A1FB8} = {6907F5AA-505B-4496-B8C3-86C6C109720A}
 		{0E010C1E-19C1-4C2A-8656-AB1094B81F0B} = {1540FB41-6E3D-4EDF-BA1C-BFE698569646}
 		{26A1958F-18BF-4E88-84D8-43C19D92A13E} = {1540FB41-6E3D-4EDF-BA1C-BFE698569646}
+		{BF6CA9BF-B3AC-439D-BAF4-C6B9187227F6} = {DADF5CE2-1452-45B9-854C-1F2C0F1D9645}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {82052E6D-53D0-4348-925D-A71AB8BD4383}

@@ -9,7 +9,7 @@ namespace Akasia.Application.Repository
     {
         // Transaction
         Task CreateAsync(T entity);
-        Task ReadAsync();
+        Task<IEnumerable<T>> ReadAsync();
         Task ReadByIdAsync(int id);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);

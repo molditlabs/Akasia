@@ -10,6 +10,6 @@ namespace Akasia.Application.Service
     {
         // Transaction
         Task<int> CreateAsync(CreateBlogPostRequestDTO request);
-       
+        Task<List<ReadBlogPostResponseDTO>> ReadAsync();
     }
 }
