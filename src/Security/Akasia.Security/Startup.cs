@@ -54,6 +54,11 @@ namespace Akasia.Security
             // Add-Migration -Name AddConfigurationTables -Context ConfigurationDbContext -OutputDir Data/Migrations/ConfigurationDb
             // Add-Migration -Name AddPersistedGrantTables -Context PersistedGrantDbContext -OutputDir Data/Migrations/PersistedGrantDb
             services.AddDbContext<IdentityServerDbContext>();
+
+            services.AddAuthentication()
+                .AddCookie(options => {
+                    options.ExpireTimeSpan = new TimeSpan(0, 15, 0);
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +79,8 @@ namespace Akasia.Security
 
             app.UseRouting();
 
+            app.UseIdentityServer();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
