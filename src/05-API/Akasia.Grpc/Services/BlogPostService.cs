@@ -81,5 +81,36 @@ namespace Akasia.Grpc.Services
                 await responseStream.WriteAsync(item);
             }
         }
+
+        public async override Task<BlogPostObject> ReadBlogPostById(ReadBlogPostByIdRequest request, ServerCallContext context)
+        {
+            var blogPostDto = await _blogPostAppService.ReadByIdAsync(request.NewId);
+
+            return new BlogPostObject
+            {
+                Title = blogPostDto.Title,
+                Content = blogPostDto.Content
+            };
+        }
+
+        public async override Task<BlogPostObject> UpdateBlogPost(UpdateBlogPostRequest request, ServerCallContext context)
+        {
+            var req = new UpdateBlogPostRequestDTO
+            {
+                Id = request.NewId,
+                Title = request.Title,
+                Content = request.Content
+            };
+            await _blogPostAppService.UpdateAsync(req);
+            //var upd = await _blogPostAppService.UpdateAsync(req);
+
+            var blogPostDto = await _blogPostAppService.ReadByIdAsync(req.Id);
+
+            return new BlogPostObject
+            {
+                Title = blogPostDto.Title,
+                Content = blogPostDto.Content
+            };
+        }
     }
 }

@@ -25,4 +25,22 @@ namespace Akasia.Application.DTO
         public string Content { get; set; }
     }
 
+    public class ReadBlogPostByIdResponseDTO
+    {
+        public string Title { get; set; }
+        public string Content { get; set; }
+    }
+
+    public class UpdateBlogPostRequestDTO
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+    }
+
+    public class UpdateBlogPostResponseDTO
+    {
+        public string Title { get; set; }
+        public string Content { get; set; }
+    }
 }

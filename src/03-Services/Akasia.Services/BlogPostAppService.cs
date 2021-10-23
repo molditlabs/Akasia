@@ -74,5 +74,49 @@ namespace Akasia.Services
                 return null;
             }
         }
+
+        public async Task<ReadBlogPostByIdResponseDTO> ReadByIdAsync(int id)
+        {
+            try
+            {
+                _unitofwork.CreateTransaction();
+                var blogPost = await _unitofwork.BlogPost.ReadByIdAsync(id);
+                _unitofwork.Commit();
+
+
+                var blogPostDto = new ReadBlogPostByIdResponseDTO
+                {
+                    Title = blogPost.Title,
+                    Content = blogPost.Content
+                };
+
+                return blogPostDto;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(@$"Error: {ex.Message}");
+                _unitofwork.Rollback();
+                return null;
+            }
+        }
+
+        public async Task UpdateAsync(UpdateBlogPostRequestDTO request)
+        {
+            try
+            {
+                _unitofwork.CreateTransaction();
+                await _unitofwork.BlogPost.UpdateAsync(request.Id, request.Title, request.Content);
+                _unitofwork.Commit();
+
+              
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(@$"Error: {ex.Message}");
+                _unitofwork.Rollback();
+                
+            }
+        }
     }
 }

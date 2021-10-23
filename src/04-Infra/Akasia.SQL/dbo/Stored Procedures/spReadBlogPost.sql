@@ -2,4 +2,4 @@
 AS
 BEGIN
 	SELECT * FROM BlogPost nolock
-END	
+END

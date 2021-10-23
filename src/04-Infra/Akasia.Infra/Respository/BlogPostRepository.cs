@@ -46,14 +46,26 @@ namespace Akasia.Infra.Respository
             return result;
         }
 
-        public Task ReadByIdAsync(int id)
+        public async Task<BlogPost> ReadByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var queryParams = new
+            {
+                Id = id
+            };
+            var result = await _dbSession.Connection.QueryFirstOrDefaultAsync<BlogPost>("spReadBlogPostById", queryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
+            return result;
         }
 
-        public Task UpdateAsync(BlogPost entity)
+        public async Task UpdateAsync(int id, string title, string content)
         {
-            throw new NotImplementedException();
+            var queryParams = new
+            {
+                Id = id,
+                Title = title,
+                Content = content
+            };
+            await _dbSession.Connection.ExecuteScalarAsync<BlogPost>("spUpdateBlogPost", queryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
+
         }
     }
 }

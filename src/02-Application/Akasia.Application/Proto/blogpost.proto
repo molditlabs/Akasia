@@ -11,6 +11,8 @@ service BlogPostEndpoint {
 	rpc CreateBlogPost (CreateBlogPostRequest) returns (CreateBlogPostResponse);
 	rpc ReadBlogPost (google.protobuf.Empty) returns (ReadBlogPostResponse);
 	rpc ReadBlogPostStream (google.protobuf.Empty) returns (stream BlogPostObject);
+	rpc ReadBlogPostById (ReadBlogPostByIdRequest) returns (BlogPostObject);
+	rpc UpdateBlogPost (UpdateBlogPostRequest) returns (BlogPostObject);
 }
 
 message CreateBlogPostRequest {
@@ -29,5 +31,15 @@ message ReadBlogPostResponse {
 message BlogPostObject {
 	string title = 1;
 	string content = 2;
+}
+
+message ReadBlogPostByIdRequest {
+	int32 newId = 1;
+}
+
+message UpdateBlogPostRequest {
+	int32 newId = 1;
+	string title = 2;
+	string content = 3;
 }
 

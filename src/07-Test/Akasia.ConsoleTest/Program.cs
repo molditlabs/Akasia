@@ -48,6 +48,18 @@ namespace Akasia.ConsoleTest
                 }
             }
 
+            Console.WriteLine();
+
+            Console.WriteLine("Read by ID");
+            var read = client.ReadBlogPostById(new ReadBlogPostByIdRequest { NewId = 1});
+            Console.WriteLine($"{read.Title} - {read.Content}");
+
+            Console.WriteLine();
+
+            Console.WriteLine("Update");
+            var upd = await client.UpdateBlogPostAsync(new UpdateBlogPostRequest { NewId = 1, Title = "Very simple update", Content = "Simple update content" });
+            Console.WriteLine($"{upd.Title} - {upd.Content}");
+
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
         }
