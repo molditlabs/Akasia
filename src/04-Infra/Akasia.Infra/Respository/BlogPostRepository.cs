@@ -35,12 +35,17 @@ namespace Akasia.Infra.Respository
             throw new NotImplementedException();
         }
 
-        public Task<bool> IsRecordExistAsync(int id)
+        public async Task<bool> IsRecordExistAsync(string title)
         {
-            throw new NotImplementedException();
+            var queryParams = new
+            {
+                Title = title
+            };
+
+            return await _dbSession.Connection.ExecuteScalarAsync<bool>("spIsBlogPostExist", queryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
         }
 
-        public async Task<IEnumerable<BlogPost>> ReadAsync()
+        public async Task<IEnumerable<BlogPost>> ReadAllAsync()
         {
             var result = await _dbSession.Connection.QueryAsync<BlogPost>("spReadBlogPost", new { }, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
             return result;
@@ -65,7 +70,6 @@ namespace Akasia.Infra.Respository
                 Content = content
             };
             await _dbSession.Connection.ExecuteScalarAsync<BlogPost>("spUpdateBlogPost", queryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
-
         }
     }
 }

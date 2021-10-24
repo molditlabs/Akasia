@@ -45,34 +45,63 @@ namespace Akasia.Services
             }
         }
 
-        public async Task<List<ReadBlogPostResponseDTO>> ReadAsync()
+        public async Task<bool> IsRecordExist(string title)
         {
+            bool isExist = false;
+
             try
             {
                 _unitofwork.CreateTransaction();
-                var blogPostListResponse = await _unitofwork.BlogPost.ReadAsync();
+                isExist = await _unitofwork.BlogPost.IsRecordExistAsync(title);
                 _unitofwork.Commit();
-
-                var dto = new List<ReadBlogPostResponseDTO>();
-                foreach (var blogPost in blogPostListResponse)
-                {
-                    dto.Add(
-                            new ReadBlogPostResponseDTO 
-                            {
-                                Title = blogPost.Title,
-                                Content = blogPost.Content
-                            }
-                        );
-                }
-
-                return dto;
             }
             catch (Exception ex)
             {
                 _logger.LogError(@$"Error: {ex.Message}");
                 _unitofwork.Rollback();
-                return null;
             }
+
+            return isExist;
+        }
+
+        public async Task<ReadAllBlogPostResponseDTO> ReadAllAsync()
+        {
+            ReadAllBlogPostResponseDTO blogPostListDto = new ReadAllBlogPostResponseDTO();
+            try
+            {
+                _unitofwork.CreateTransaction();
+                var blogPostListResponse = await _unitofwork.BlogPost.ReadAllAsync();
+                _unitofwork.Commit();
+
+                // Map list of BlogPost object to BlogPostModelDTO object and add to list
+                var blogPostDto = new List<BlogPostModelDTO>();
+                foreach (var item in blogPostListResponse)
+                {
+                    blogPostDto.Add
+                        (
+                            new BlogPostModelDTO
+                            {
+                                Title = item.Title,
+                                Content = item.Content
+                            }
+                        );
+                }
+
+                // Add list of BlogPostModelDTO object to BlogPostModelList property of ReadAllBlogPostDTO object 
+                foreach (var item in blogPostDto)
+                {
+        
+
+                    blogPostListDto.BlogPostModelList.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(@$"Error: {ex.Message}");
+                _unitofwork.Rollback();
+            }
+
+            return blogPostListDto;
         }
 
         public async Task<ReadBlogPostByIdResponseDTO> ReadByIdAsync(int id)
@@ -107,8 +136,6 @@ namespace Akasia.Services
                 _unitofwork.CreateTransaction();
                 await _unitofwork.BlogPost.UpdateAsync(request.Id, request.Title, request.Content);
                 _unitofwork.Commit();
-
-              
 
             }
             catch (Exception ex)

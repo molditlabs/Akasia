@@ -21,95 +21,163 @@ namespace Akasia.Grpc.Services
             _blogPostAppService = blogPostAppService;
         }
 
-        public async override Task<CreateBlogPostResponse> CreateBlogPost(CreateBlogPostRequest request, ServerCallContext context)
+        //public async override Task<BlogPostObject> ReadBlogPostById(ReadBlogPostByIdRequest request, ServerCallContext context)
+        //{
+        //    var blogPostDto = await _blogPostAppService.ReadByIdAsync(request.NewId);
+
+        //    return new BlogPostObject
+        //    {
+        //        Title = blogPostDto.Title,
+        //        Content = blogPostDto.Content
+        //    };
+        //}
+
+        
+
+        public async override Task<ReadAllBlogPostResponse> ReadAllBlogPost(Empty request, ServerCallContext context)
         {
+            _logger.LogInformation("Reading all Blog posts");
+
+            ReadAllBlogPostResponse response = new ReadAllBlogPostResponse();
+
+            try
+            {
+                var blogPostListDto = await _blogPostAppService.ReadAllAsync();
+
+                // Map BlogPostModelDTO object to BlogPostModel object
+                var blogPostModel = new List<BlogPostModel>();
+                foreach (var item in blogPostListDto.BlogPostModelList)
+                {
+                    blogPostModel.Add
+                        (
+                            new BlogPostModel
+                            { 
+                                Title = item.Title,
+                                Content = item.Content
+                            }
+                        );
+                }
+
+                // Add list of BlogPostModel object to blogPostModel property of BlogPostModelListResponse object
+                foreach (var item in blogPostModel)
+                {
+                    response.BlogPostModel.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(@$"Error: {ex.Message}");
+            }
+
+            return response;
+        }
+
+        public async override Task ReadAllBlogPostStream(Empty request, IServerStreamWriter<BlogPostModel> responseStream, ServerCallContext context)
+        {
+            _logger.LogInformation("Reading all Blog posts (STREAM)");
+
+            try
+            {
+                var blogPostListDto = await _blogPostAppService.ReadAllAsync();
+
+                // Map BlogPostModelDTO object to BlogPostModel object
+                var blogPostModel = new List<BlogPostModel>();
+                foreach (var item in blogPostListDto.BlogPostModelList)
+                {
+                    blogPostModel.Add
+                        (
+                            new BlogPostModel
+                            {
+                                Title = item.Title,
+                                Content = item.Content
+                            }
+                        );
+                }
+
+                // Fetch list of BlogPostModel object
+                foreach (var item in blogPostModel)
+                {
+                    await responseStream.WriteAsync(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(@$"Error: {ex.Message}");
+            }
+        }
+
+        public async override Task<TransactionResponse> CreateBlogPost(CreateBlogPostRequest request, ServerCallContext context)
+        {
+            var blogPostExist = await _blogPostAppService.IsRecordExist(request.BlogPostModel.Title);
+
+            if (blogPostExist == true)
+            {
+                return new TransactionResponse
+                {
+                    Message = "Request already exists.",
+                    IsOkay = false
+                };
+            }
+
             var newPost = new CreateBlogPostRequestDTO
             {
-                Title = request.Title,
-                Content = request.Content
+                Title = request.BlogPostModel.Title,
+                Content = request.BlogPostModel.Content
             };
 
-            var newId = await _blogPostAppService.CreateAsync(newPost);
+            _logger.LogInformation("Creating new Post");
 
-            return new CreateBlogPostResponse
+            try
             {
-                NewId = newId,
-            };
-        }
-
-
-        public async override Task<ReadBlogPostResponse> ReadBlogPost(Empty request, ServerCallContext context)
-        {
-            var blogPostList = await _blogPostAppService.ReadAsync();
-
-            var res = new ReadBlogPostResponse();
-            
-            foreach (var item in blogPostList)
+                var newId = await _blogPostAppService.CreateAsync(newPost);
+            }
+            catch (Exception ex)
             {
-                res.BlogPostObject.Add(
-                    new BlogPostObject
-                    {
-                        Title = item.Title,
-                        Content = item.Content
-                    }
-                    );
-                
+                _logger.LogError(@$"Error: {ex.Message}");
             }
 
-            return res;
-        }
-
-        public async override Task ReadBlogPostStream(Empty request, IServerStreamWriter<BlogPostObject> responseStream, ServerCallContext context)
-        {
-            var blogPostList = await _blogPostAppService.ReadAsync();
-
-            var res = new List<BlogPostObject>();
-
-            foreach (var item in blogPostList)
+            return new TransactionResponse
             {
-                res.Add(
-                        new BlogPostObject
-                        { 
-                            Title = item.Title,
-                            Content = item.Content
-                        }
-                    );
-            }
-
-            foreach (var item in res)
-            {
-                await responseStream.WriteAsync(item);
-            }
-        }
-
-        public async override Task<BlogPostObject> ReadBlogPostById(ReadBlogPostByIdRequest request, ServerCallContext context)
-        {
-            var blogPostDto = await _blogPostAppService.ReadByIdAsync(request.NewId);
-
-            return new BlogPostObject
-            {
-                Title = blogPostDto.Title,
-                Content = blogPostDto.Content
+                Message = "Request succesfully created.",
+                IsOkay = true
             };
         }
 
-        public async override Task<BlogPostObject> UpdateBlogPost(UpdateBlogPostRequest request, ServerCallContext context)
+        public async override Task<TransactionResponse> UpdateBlogPost(UpdateBlogPostRequest request, ServerCallContext context)
         {
-            var req = new UpdateBlogPostRequestDTO
+            var blogPostExist = await _blogPostAppService.IsRecordExist(request.BlogPostModel.Title);
+
+            if (blogPostExist == false)
             {
-                Id = request.NewId,
-                Title = request.Title,
-                Content = request.Content
+                return new TransactionResponse
+                {
+                    Message = "Request not exists.",
+                    IsOkay = false
+                };
+            }
+
+            var updatePost = new UpdateBlogPostRequestDTO
+            {
+                Id = request.BlogPostModel.BaseProperty.Id,
+                Title = request.BlogPostModel.Title,
+                Content = request.BlogPostModel.Content
             };
-            await _blogPostAppService.UpdateAsync(req);
-            //var upd = await _blogPostAppService.UpdateAsync(req);
 
-            var blogPostDto = await _blogPostAppService.ReadByIdAsync(req.Id);
+            _logger.LogInformation("Updating Post");
 
-            return new BlogPostObject
+            try
             {
-                Title = blogPostDto.Title,
-                Content = blogPostDto.Content
+                await _blogPostAppService.UpdateAsync(updatePost);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(@$"Error: {ex.Message}");
+            }
+
+            return new TransactionResponse
+            {
+                Message = "Request succesfully updated.",
+                IsOkay = true
             };
         }
     }

@@ -21,44 +21,65 @@ namespace Akasia.ConsoleTest
             using var channel = GrpcChannel.ForAddress("https://localhost:5001", new GrpcChannelOptions { HttpHandler = httpHandler });
             var client = new BlogPostEndpoint.BlogPostEndpointClient(channel);
             //var reply = client.CreateBlogPost(
-            //new CreateBlogPostRequest { Title = "Election day", Content="Who won?" });
+            //  new CreateBlogPostRequest { BlogPostModel.TitleFieldNumber.ToString() = "Election day", BlogPostModel.ContentFieldNumber.ToString() ="Who won?" });
 
             //Console.WriteLine("BlogPost ID is: " + reply.NewId);
+            var a = new BlogPostModel
+            {
+                Title = "Test title",
+                Content = "Test content",
+            };
+            var cre = await client.CreateBlogPostAsync(new CreateBlogPostRequest { BlogPostModel = a });
+            Console.WriteLine($"Message: {cre.Message}");
+            Console.WriteLine($"IsOkay: {cre.IsOkay}");
 
             Console.WriteLine("Normal List");
-            var reply = await client.ReadBlogPostAsync(new Empty());
+            var reply = await client.ReadAllBlogPostAsync(new Empty());
 
-            foreach (var item in reply.BlogPostObject)
+            foreach (var item in reply.BlogPostModel)
             {
                 Console.WriteLine($"{item.Title} - {item.Content}");
-                Console.WriteLine();
             }
 
             Console.WriteLine();
 
             Console.WriteLine("Stream");
-            using (var call = client.ReadBlogPostStream(new Empty()))
+            using (var call = client.ReadAllBlogPostStream(new Empty()))
             {
                 while (await call.ResponseStream.MoveNext())
                 {
                     var item = call.ResponseStream.Current;
 
                     Console.WriteLine($"{item.Title} - {item.Content}");
-                    Console.WriteLine();
                 }
             }
 
-            Console.WriteLine();
 
-            Console.WriteLine("Read by ID");
-            var read = client.ReadBlogPostById(new ReadBlogPostByIdRequest { NewId = 1});
-            Console.WriteLine($"{read.Title} - {read.Content}");
 
             Console.WriteLine();
 
             Console.WriteLine("Update");
-            var upd = await client.UpdateBlogPostAsync(new UpdateBlogPostRequest { NewId = 1, Title = "Very simple update", Content = "Simple update content" });
-            Console.WriteLine($"{upd.Title} - {upd.Content}");
+            var ba = new BaseProperty
+            {
+                Id = 5
+            };
+            var aa = new BlogPostModel
+            {
+                BaseProperty = ba,
+                Title = "Updated title",
+                Content = "Updated content",
+            };
+            var upd = await client.UpdateBlogPostAsync(new UpdateBlogPostRequest { BlogPostModel = aa });
+            Console.WriteLine($"Message: {cre.Message}");
+            Console.WriteLine($"IsOkay: {cre.IsOkay}");
+
+            //Console.WriteLine("Read by ID");
+            //var read = client.ReadBlogPostById(new ReadBlogPostByIdRequest { NewId = 1});
+            //Console.WriteLine($"{read.Title} - {read.Content}");
+
+            //Console.WriteLine();
+
+
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();

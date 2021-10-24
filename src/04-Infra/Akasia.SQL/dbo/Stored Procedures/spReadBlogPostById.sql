@@ -2,5 +2,6 @@
 	@Id int
 AS
 BEGIN
-	SELECT * FROM BlogPost WHERE Id = @Id
+	SELECT * FROM BlogPost nolock
+	WHERE Id = @Id
 END

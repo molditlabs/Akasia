@@ -10,8 +10,9 @@ namespace Akasia.Application.Service
     {
         // Transaction
         Task<int> CreateAsync(CreateBlogPostRequestDTO request);
-        Task<List<ReadBlogPostResponseDTO>> ReadAsync();
+        Task<ReadAllBlogPostResponseDTO> ReadAllAsync();
         Task<ReadBlogPostByIdResponseDTO> ReadByIdAsync(int id);
         Task UpdateAsync(UpdateBlogPostRequestDTO request);
+        Task<bool> IsRecordExist(string title);
     }
 }
