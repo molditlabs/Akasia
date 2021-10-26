@@ -44,5 +44,79 @@ namespace Akasia.Services
                 return 0;
             }
         }
+
+        public async Task<List<ReadBlogPostResponseDTO>> ReadAsync()
+        {
+            try
+            {
+                _unitofwork.CreateTransaction();
+                var blogPostListResponse = await _unitofwork.BlogPost.ReadAsync();
+                _unitofwork.Commit();
+
+                var dto = new List<ReadBlogPostResponseDTO>();
+                foreach (var blogPost in blogPostListResponse)
+                {
+                    dto.Add(
+                            new ReadBlogPostResponseDTO 
+                            {
+                                Title = blogPost.Title,
+                                Content = blogPost.Content
+                            }
+                        );
+                }
+
+                return dto;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(@$"Error: {ex.Message}");
+                _unitofwork.Rollback();
+                return null;
+            }
+        }
+
+        public async Task<ReadBlogPostByIdResponseDTO> ReadByIdAsync(int id)
+        {
+            try
+            {
+                _unitofwork.CreateTransaction();
+                var blogPost = await _unitofwork.BlogPost.ReadByIdAsync(id);
+                _unitofwork.Commit();
+
+
+                var blogPostDto = new ReadBlogPostByIdResponseDTO
+                {
+                    Title = blogPost.Title,
+                    Content = blogPost.Content
+                };
+
+                return blogPostDto;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(@$"Error: {ex.Message}");
+                _unitofwork.Rollback();
+                return null;
+            }
+        }
+
+        public async Task UpdateAsync(UpdateBlogPostRequestDTO request)
+        {
+            try
+            {
+                _unitofwork.CreateTransaction();
+                await _unitofwork.BlogPost.UpdateAsync(request.Id, request.Title, request.Content);
+                _unitofwork.Commit();
+
+              
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(@$"Error: {ex.Message}");
+                _unitofwork.Rollback();
+                
+            }
+        }
     }
 }

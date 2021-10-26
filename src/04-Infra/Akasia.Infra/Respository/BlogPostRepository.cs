@@ -1,9 +1,11 @@
-﻿using Akasia.Application.Repository;
+﻿using Akasia.Application.DTO;
+using Akasia.Application.Repository;
 using Akasia.Domain.Entity;
 using Akasia.Infra.UnitOfWork;
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,19 +21,13 @@ namespace Akasia.Infra.Respository
 
         public async Task CreateAsync(BlogPost request)
         {
-
-            var createQuery = @$"INSERT INTO BlogPost (Title, Content, PostDate, Status, CreatedDate)
-                                OUTPUT Inserted.Id
-                                VALUES (@Title, @Content, GETDATE(), 1, GETDATE())
-                                ";
-
             var createQueryParams = new
             {
                 Title = request.Title,
                 Content = request.Content
             };
 
-            request.Id = await _dbSession.Connection.ExecuteScalarAsync<int>(createQuery, createQueryParams, _dbSession.Transaction);
+            request.Id = await _dbSession.Connection.ExecuteScalarAsync<int>("spCreateBlogPost", createQueryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
         }
 
         public Task DeleteAsync(BlogPost entity)
@@ -44,19 +40,32 @@ namespace Akasia.Infra.Respository
             throw new NotImplementedException();
         }
 
-        public Task ReadAsync()
+        public async Task<IEnumerable<BlogPost>> ReadAsync()
         {
-            throw new NotImplementedException();
+            var result = await _dbSession.Connection.QueryAsync<BlogPost>("spReadBlogPost", new { }, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
+            return result;
         }
 
-        public Task ReadByIdAsync(int id)
+        public async Task<BlogPost> ReadByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var queryParams = new
+            {
+                Id = id
+            };
+            var result = await _dbSession.Connection.QueryFirstOrDefaultAsync<BlogPost>("spReadBlogPostById", queryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
+            return result;
         }
 
-        public Task UpdateAsync(BlogPost entity)
+        public async Task UpdateAsync(int id, string title, string content)
         {
-            throw new NotImplementedException();
+            var queryParams = new
+            {
+                Id = id,
+                Title = title,
+                Content = content
+            };
+            await _dbSession.Connection.ExecuteScalarAsync<BlogPost>("spUpdateBlogPost", queryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
+
         }
     }
 }

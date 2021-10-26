@@ -1,0 +1,6 @@
+﻿CREATE PROCEDURE spReadBlogPostById
+	@Id int
+AS
+BEGIN
+	SELECT * FROM BlogPost WHERE Id = @Id
+END

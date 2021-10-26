@@ -1,0 +1,86 @@
+23/10/2021 1:14:05 pm	This log contains information about the import schema operation into project 'Akasia.SQL' on computer 'DESKTOP-4NKASRC' by user 'jrcla'.
+23/10/2021 1:14:05 pm	Import of database schema has started.
+23/10/2021 1:14:09 pm	Gathering database credentials
+23/10/2021 1:14:09 pm	Gathering database options
+23/10/2021 1:14:09 pm	Gathering generic database scoped configuration option
+23/10/2021 1:14:09 pm	Gathering users
+23/10/2021 1:14:09 pm	Gathering roles
+23/10/2021 1:14:09 pm	Gathering application roles
+23/10/2021 1:14:09 pm	Gathering role memberships
+23/10/2021 1:14:09 pm	Gathering filegroups
+23/10/2021 1:14:09 pm	Gathering full-text catalogs
+23/10/2021 1:14:09 pm	Gathering assemblies
+23/10/2021 1:14:09 pm	Gathering certificates
+23/10/2021 1:14:09 pm	Gathering asymmetric keys
+23/10/2021 1:14:09 pm	Gathering symmetric keys
+23/10/2021 1:14:09 pm	Gathering encrypted symmetric keys
+23/10/2021 1:14:09 pm	Gathering schemas
+23/10/2021 1:14:09 pm	Gathering XML schema collections
+23/10/2021 1:14:09 pm	Gathering user-defined data types
+23/10/2021 1:14:09 pm	Gathering user-defined types
+23/10/2021 1:14:09 pm	Gathering table types
+23/10/2021 1:14:09 pm	Gathering unique keys for table types
+23/10/2021 1:14:09 pm	Gathering primary keys for table types
+23/10/2021 1:14:09 pm	Gathering indexes for table types
+23/10/2021 1:14:09 pm	Gathering check constraints for table types
+23/10/2021 1:14:09 pm	Gathering default constraints for table types
+23/10/2021 1:14:09 pm	Gathering partition functions
+23/10/2021 1:14:09 pm	Gathering partition schemes
+23/10/2021 1:14:09 pm	Gathering functions
+23/10/2021 1:14:09 pm	Gathering encrypted functions
+23/10/2021 1:14:09 pm	Gathering aggregates
+23/10/2021 1:14:09 pm	Gathering procedures
+23/10/2021 1:14:09 pm	Gathering encrypted procedures
+23/10/2021 1:14:09 pm	Gathering tables
+23/10/2021 1:14:09 pm	Gathering primary keys
+23/10/2021 1:14:09 pm	Gathering unique constraints
+23/10/2021 1:14:09 pm	Gathering foreign keys
+23/10/2021 1:14:09 pm	Gathering default constraints
+23/10/2021 1:14:09 pm	Gathering check constraints
+23/10/2021 1:14:09 pm	Gathering views
+23/10/2021 1:14:09 pm	Gathering encrypted views
+23/10/2021 1:14:09 pm	Gathering indexes
+23/10/2021 1:14:09 pm	Gathering statistics
+23/10/2021 1:14:09 pm	Gathering full-text index stoplists
+23/10/2021 1:14:09 pm	Gathering search property lists
+23/10/2021 1:14:09 pm	Gathering search properties
+23/10/2021 1:14:09 pm	Gathering full-text indexes
+23/10/2021 1:14:09 pm	Gathering column store indexes
+23/10/2021 1:14:09 pm	Gathering spatial indexes
+23/10/2021 1:14:09 pm	Gathering XML indexes
+23/10/2021 1:14:09 pm	Gathering Selective XML indexes
+23/10/2021 1:14:09 pm	Gathering encrypted triggers
+23/10/2021 1:14:09 pm	Gathering triggers
+23/10/2021 1:14:09 pm	Gathering encrypted and clr ddl triggers
+23/10/2021 1:14:09 pm	Gathering ddl triggers
+23/10/2021 1:14:09 pm	Creating edge constraints
+23/10/2021 1:14:09 pm	Gathering synonyms
+23/10/2021 1:14:09 pm	Gathering defaults
+23/10/2021 1:14:09 pm	Gathering data constraint uddt bindings
+23/10/2021 1:14:09 pm	Gathering rules
+23/10/2021 1:14:09 pm	Gathering data constraint uddt bindings
+23/10/2021 1:14:09 pm	Gathering message types
+23/10/2021 1:14:09 pm	Gathering queues
+23/10/2021 1:14:09 pm	Gathering contracts
+23/10/2021 1:14:09 pm	Gathering services
+23/10/2021 1:14:09 pm	Gathering event notifications
+23/10/2021 1:14:09 pm	Gathering remote service bindings
+23/10/2021 1:14:09 pm	Gathering broker priorities
+23/10/2021 1:14:09 pm	Gathering signatures
+23/10/2021 1:14:09 pm	Gathering data compression options
+23/10/2021 1:14:09 pm	Gathering sequence types
+23/10/2021 1:14:09 pm	Gathering security policies
+23/10/2021 1:14:09 pm	Gather column encryption keys
+23/10/2021 1:14:09 pm	Gathering column master keys
+23/10/2021 1:14:09 pm	Gathering external data sources
+23/10/2021 1:14:09 pm	Gathering external file formats
+23/10/2021 1:14:09 pm	Gathering external tables
+23/10/2021 1:14:09 pm	Gathering extended properties
+23/10/2021 1:14:09 pm	Gathering credentials
+23/10/2021 1:14:09 pm	Gathering logins
+23/10/2021 1:14:09 pm	Gathering server audits
+23/10/2021 1:14:10 pm	Scanning project for duplicate elements
+23/10/2021 1:14:10 pm	Finished duplicate element processing
+23/10/2021 1:14:10 pm	Finished importing database.
+23/10/2021 1:14:10 pm	A summary of the import was saved to the following location: D:\Projects\GitHub\Forked\Akasia\src\04-Infra\Akasia.SQL\Import Schema Logs\Akasia.SQL_20211023051405.log
+23/10/2021 1:14:10 pm	Click Finish to continue...
