@@ -12,9 +12,9 @@ namespace Akasia.Application.Repository
         Task<IEnumerable<T>> ReadAllAsync();
         Task<T> ReadByIdAsync(int id);
         Task UpdateAsync(int id, string title, string content);
-        Task DeleteAsync(T entity);
+        Task DeleteAsync(int id);
 
         // Checks
-        Task<bool> IsRecordExistAsync(string title);
+        Task<bool> IsRecordExistAsync(int id);
     }
 }

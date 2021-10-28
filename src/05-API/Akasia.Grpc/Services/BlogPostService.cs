@@ -21,20 +21,7 @@ namespace Akasia.Grpc.Services
             _blogPostAppService = blogPostAppService;
         }
 
-        //public async override Task<BlogPostObject> ReadBlogPostById(ReadBlogPostByIdRequest request, ServerCallContext context)
-        //{
-        //    var blogPostDto = await _blogPostAppService.ReadByIdAsync(request.NewId);
-
-        //    return new BlogPostObject
-        //    {
-        //        Title = blogPostDto.Title,
-        //        Content = blogPostDto.Content
-        //    };
-        //}
-
-        
-
-        public async override Task<ReadAllBlogPostResponse> ReadAllBlogPost(Empty request, ServerCallContext context)
+        public override async Task<ReadAllBlogPostResponse> ReadAllBlogPost(Empty request, ServerCallContext context)
         {
             _logger.LogInformation("Reading all Blog posts");
 
@@ -42,26 +29,30 @@ namespace Akasia.Grpc.Services
 
             try
             {
-                var blogPostListDto = await _blogPostAppService.ReadAllAsync();
+                var blogPostDtoList = await _blogPostAppService.ReadAllAsync();
 
                 // Map BlogPostModelDTO object to BlogPostModel object
-                var blogPostModel = new List<BlogPostModel>();
-                foreach (var item in blogPostListDto.BlogPostModelList)
+                if (blogPostDtoList.BlogPostModelList.Any())
                 {
-                    blogPostModel.Add
-                        (
-                            new BlogPostModel
-                            { 
-                                Title = item.Title,
-                                Content = item.Content
-                            }
-                        );
-                }
+                    var blogPostModelList = new List<BlogPostModel>();
 
-                // Add list of BlogPostModel object to blogPostModel property of BlogPostModelListResponse object
-                foreach (var item in blogPostModel)
-                {
-                    response.BlogPostModel.Add(item);
+                    foreach (var item in blogPostDtoList.BlogPostModelList)
+                    {
+                        blogPostModelList.Add
+                            (
+                                new BlogPostModel
+                                {
+                                    Title = item.Title,
+                                    Content = item.Content
+                                }
+                            );
+                    }
+
+                    // Add list of BlogPostModel object to blogPostModel property of BlogPostModelListResponse object
+                    foreach (var item in blogPostModelList)
+                    {
+                        response.BlogPostModel.Add(item);
+                    }
                 }
             }
             catch (Exception ex)
@@ -76,26 +67,30 @@ namespace Akasia.Grpc.Services
         {
             _logger.LogInformation("Reading all Blog posts (STREAM)");
 
+            List<BlogPostModel> blogPostModelList = new List<BlogPostModel>();
+
             try
             {
-                var blogPostListDto = await _blogPostAppService.ReadAllAsync();
+                var blogPostDtoList = await _blogPostAppService.ReadAllAsync();
 
                 // Map BlogPostModelDTO object to BlogPostModel object
-                var blogPostModel = new List<BlogPostModel>();
-                foreach (var item in blogPostListDto.BlogPostModelList)
+                if (blogPostDtoList.BlogPostModelList != null)
                 {
-                    blogPostModel.Add
-                        (
-                            new BlogPostModel
-                            {
-                                Title = item.Title,
-                                Content = item.Content
-                            }
-                        );
+                    foreach (var item in blogPostDtoList.BlogPostModelList)
+                    {
+                        blogPostModelList.Add
+                            (
+                                new BlogPostModel
+                                {
+                                    Title = item.Title,
+                                    Content = item.Content
+                                }
+                            );
+                    }
                 }
 
                 // Fetch list of BlogPostModel object
-                foreach (var item in blogPostModel)
+                foreach (var item in blogPostModelList)
                 {
                     await responseStream.WriteAsync(item);
                 }
@@ -106,9 +101,40 @@ namespace Akasia.Grpc.Services
             }
         }
 
+        public override async Task<ReadBlogPostByIdResponse> ReadBlogPostById(ReadBlogPostByIdRequest request, ServerCallContext context)
+        {
+            _logger.LogInformation("Reading Blog post by Id");
+
+            ReadBlogPostByIdResponse response = new ReadBlogPostByIdResponse();
+
+            try
+            {
+                var blogPostDto = await _blogPostAppService.ReadByIdAsync(request.Id);
+
+                // If blog post exists, map BlogPostModelDto object to BlogPostModel object
+                if (blogPostDto.BlogPostModelDTO != null)
+                {
+                    var blogPostModel = new BlogPostModel
+                    {
+                        Title = blogPostDto.BlogPostModelDTO.Title,
+                        Content = blogPostDto.BlogPostModelDTO.Content
+                    };
+
+                    response.BlogPostModel = blogPostModel;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(@$"Error: {ex.Message}");
+            }
+
+            return response;
+        }
+
         public async override Task<TransactionResponse> CreateBlogPost(CreateBlogPostRequest request, ServerCallContext context)
         {
-            var blogPostExist = await _blogPostAppService.IsRecordExist(request.BlogPostModel.Title);
+            var blogPostExist = await _blogPostAppService.CheckTitleExistAsync(request.BlogPostModel.Title);
 
             if (blogPostExist == true)
             {
@@ -145,7 +171,7 @@ namespace Akasia.Grpc.Services
 
         public async override Task<TransactionResponse> UpdateBlogPost(UpdateBlogPostRequest request, ServerCallContext context)
         {
-            var blogPostExist = await _blogPostAppService.IsRecordExist(request.BlogPostModel.Title);
+            var blogPostExist = await _blogPostAppService.IsRecordExist(request.BlogPostModel.BaseProperty.Id);
 
             if (blogPostExist == false)
             {
@@ -177,6 +203,37 @@ namespace Akasia.Grpc.Services
             return new TransactionResponse
             {
                 Message = "Request succesfully updated.",
+                IsOkay = true
+            };
+        }
+
+        public async override Task<TransactionResponse> DeleteBlogPost(DeleteBlogPostRequest request, ServerCallContext context)
+        {
+            var blogPostExist = await _blogPostAppService.IsRecordExist(request.Id);
+
+            if (blogPostExist == false)
+            {
+                return new TransactionResponse
+                {
+                    Message = "Request not exists.",
+                    IsOkay = false
+                };
+            }
+
+            _logger.LogInformation("Deleting Post");
+
+            try
+            {
+                await _blogPostAppService.DeleteAsync(request.Id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(@$"Error: {ex.Message}");
+            }
+
+            return new TransactionResponse
+            {
+                Message = "Request succesfully deleted.",
                 IsOkay = true
             };
         }

@@ -11,21 +11,10 @@ package blogpost;
 service BlogPostEndpoint {
 	rpc ReadAllBlogPost (google.protobuf.Empty) returns (ReadAllBlogPostResponse);
 	rpc ReadAllBlogPostStream (google.protobuf.Empty) returns (stream BlogPostModel);
+	rpc ReadBlogPostById (ReadBlogPostByIdRequest) returns (ReadBlogPostByIdResponse);
 	rpc CreateBlogPost (CreateBlogPostRequest) returns (TransactionResponse);
 	rpc UpdateBlogPost (UpdateBlogPostRequest) returns (TransactionResponse);
-}
-
-message CreateBlogPostResponse {
-	int32 newId = 1;
-}
-
-message BlogPostObject {
-	string title = 1;
-	string content = 2;
-}
-
-message ReadBlogPostByIdRequest {
-	int32 newId = 1;
+	rpc DeleteBlogPost (DeleteBlogPostRequest) returns (TransactionResponse);
 }
 
 message BaseProperty {
@@ -56,12 +45,24 @@ message ReadAllBlogPostResponse {
 	repeated BlogPostModel blogPostModel = 1;
 }
 
+message ReadBlogPostByIdRequest {
+	int32 Id = 1;
+}
+
+message ReadBlogPostByIdResponse {
+	BlogPostModel blogPostModel = 1;
+}
+
 message CreateBlogPostRequest {
 	BlogPostModel blogPostModel = 1;
 } 
 
 message UpdateBlogPostRequest {
 	BlogPostModel blogPostModel = 1;
+}
+
+message DeleteBlogPostRequest {
+	int32 Id = 1;
 }
 
 message TransactionResponse {

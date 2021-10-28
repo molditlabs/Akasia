@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spIsBlogPostExist]
-	@Title nvarchar(1000)
+	@Id int
 AS
+BEGIN
 	SELECT * FROM BlogPost nolock 
-	WHERE Title = @Title
-RETURN 0
+	WHERE Id = @Id
+END

@@ -31,38 +31,16 @@ namespace Akasia.Application.DTO
     {
         public List<BlogPostModelDTO> BlogPostModelList { get; set; } = new List<BlogPostModelDTO>();
     }
+    public class ReadBlogPostByIdResponseDTO
+    {
+        public BlogPostModelDTO BlogPostModelDTO { get; set; }
+    }
     public class CreateBlogPostRequestDTO : BlogPostModelDTO
     {
 
     }
-
     public class UpdateBlogPostRequestDTO : BlogPostModelDTO
     {
         
-    }
-
-    public class CreateBlogPostResponseDTO
-    {
-        public int Id { get; set; }
-    }
-
-    public class ReadBlogPostResponseDTO
-    {
-        public string Title { get; set; }
-        public string Content { get; set; }
-    }
-
-    public class ReadBlogPostByIdResponseDTO
-    {
-        public string Title { get; set; }
-        public string Content { get; set; }
-    }
-
-    
-
-    public class UpdateBlogPostResponseDTO
-    {
-        public string Title { get; set; }
-        public string Content { get; set; }
     }
 }

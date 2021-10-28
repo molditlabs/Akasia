@@ -20,64 +20,81 @@ namespace Akasia.ConsoleTest
             // The port number(5001) must match the port of the gRPC server.
             using var channel = GrpcChannel.ForAddress("https://localhost:5001", new GrpcChannelOptions { HttpHandler = httpHandler });
             var client = new BlogPostEndpoint.BlogPostEndpointClient(channel);
-            //var reply = client.CreateBlogPost(
-            //  new CreateBlogPostRequest { BlogPostModel.TitleFieldNumber.ToString() = "Election day", BlogPostModel.ContentFieldNumber.ToString() ="Who won?" });
 
-            //Console.WriteLine("BlogPost ID is: " + reply.NewId);
-            var a = new BlogPostModel
-            {
-                Title = "Test title",
-                Content = "Test content",
-            };
-            var cre = await client.CreateBlogPostAsync(new CreateBlogPostRequest { BlogPostModel = a });
-            Console.WriteLine($"Message: {cre.Message}");
-            Console.WriteLine($"IsOkay: {cre.IsOkay}");
+            Console.WriteLine("Read all blog post");
+            var blogPostList = await client.ReadAllBlogPostAsync(new Empty());
 
-            Console.WriteLine("Normal List");
-            var reply = await client.ReadAllBlogPostAsync(new Empty());
-
-            foreach (var item in reply.BlogPostModel)
+            foreach (var item in blogPostList.BlogPostModel)
             {
                 Console.WriteLine($"{item.Title} - {item.Content}");
             }
 
             Console.WriteLine();
 
-            Console.WriteLine("Stream");
-            using (var call = client.ReadAllBlogPostStream(new Empty()))
+            Console.WriteLine("Read all blog post Stream");
+            using (var blogPostListStream = client.ReadAllBlogPostStream(new Empty()))
             {
-                while (await call.ResponseStream.MoveNext())
+                while (await blogPostListStream.ResponseStream.MoveNext())
                 {
-                    var item = call.ResponseStream.Current;
+                    var item = blogPostListStream.ResponseStream.Current;
 
                     Console.WriteLine($"{item.Title} - {item.Content}");
                 }
             }
 
+            Console.WriteLine();
 
+            Console.WriteLine("Read blog post by Id");
+            var readBlogPostModelByIdRequest = new ReadBlogPostByIdRequest
+            {
+                Id = 1
+            };
+
+            var blogPost = client.ReadBlogPostById(readBlogPostModelByIdRequest);
+
+            if (blogPost.BlogPostModel != null)
+            {
+                Console.WriteLine($"{blogPost.BlogPostModel.Title} - {blogPost.BlogPostModel.Content}");
+            }
+            else
+            {
+                Console.WriteLine("Blog not found!");
+            }
+
+            //Console.WriteLine();
+            //Console.WriteLine("Create Blog post");
+            //var createPostContent = new BlogPostModel
+            //{
+            //    Title = "Election day",
+            //    Content = "Who won?",
+            //};
+            //var createPostResponse = await client.CreateBlogPostAsync(new CreateBlogPostRequest { BlogPostModel = createPostContent });
+            //Console.WriteLine($"Message: {createPostResponse.Message}");
+            //Console.WriteLine($"IsOkay: {createPostResponse.IsOkay}");
+
+            //Console.WriteLine();
+
+            //Console.WriteLine("Update Blog post");
+            //var updateBase = new BaseProperty
+            //{
+            //    Id = 5
+            //};
+            //var updateContent = new BlogPostModel
+            //{
+            //    BaseProperty = updateBase,
+            //    Title = "Updated title",
+            //    Content = "Updated content",
+            //};
+            //var updatePostResponse = await client.UpdateBlogPostAsync(new UpdateBlogPostRequest { BlogPostModel = updateContent });
+            //Console.WriteLine($"Message: {updatePostResponse.Message}");
+            //Console.WriteLine($"IsOkay: {updatePostResponse.IsOkay}");
 
             Console.WriteLine();
 
-            Console.WriteLine("Update");
-            var ba = new BaseProperty
-            {
-                Id = 5
-            };
-            var aa = new BlogPostModel
-            {
-                BaseProperty = ba,
-                Title = "Updated title",
-                Content = "Updated content",
-            };
-            var upd = await client.UpdateBlogPostAsync(new UpdateBlogPostRequest { BlogPostModel = aa });
-            Console.WriteLine($"Message: {cre.Message}");
-            Console.WriteLine($"IsOkay: {cre.IsOkay}");
-
-            //Console.WriteLine("Read by ID");
-            //var read = client.ReadBlogPostById(new ReadBlogPostByIdRequest { NewId = 1});
-            //Console.WriteLine($"{read.Title} - {read.Content}");
-
-            //Console.WriteLine();
+            Console.WriteLine("Delete Blog post");
+            var deletePostResponse = await client.DeleteBlogPostAsync(new DeleteBlogPostRequest { Id = 1002 });
+            Console.WriteLine($"Message: {deletePostResponse.Message}");
+            Console.WriteLine($"IsOkay: {deletePostResponse.IsOkay}");
 
 
 
