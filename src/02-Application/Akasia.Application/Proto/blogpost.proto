@@ -19,11 +19,10 @@ service BlogPostEndpoint {
 
 message BaseProperty {
 	int32 id = 1;
-    bool isDeleted = 2;
-	string createdBy = 3;
-    google.protobuf.Timestamp createdDate = 4;
-    string modifiedBy = 5;
-    google.protobuf.Timestamp modifiedDate = 6;
+	string createdBy = 2;
+    google.protobuf.Timestamp createdDate = 3;
+    string modifiedBy = 4;
+    google.protobuf.Timestamp modifiedDate = 5;
 }
 
 enum PostStatusProperty {
