@@ -78,5 +78,6 @@
   <ItemGroup>
     <None Include="Publish\Akasia.SQL.publish.xml" />
     <None Include="Schema Compare\SqlSchemaCompare.scmp" />
+    <None Include="Publish\DSC-Akasia.SQL.publish.publish.xml" />
   </ItemGroup>
 </Project>
