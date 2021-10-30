@@ -13,6 +13,9 @@
 /src/04-Infra/Akasia.Infra/bin/Debug/netstandard2.1
 /src/04-Infra/Akasia.SQL/bin/Debug
 /src/04-Infra/Akasia.SQL/obj/Debug
+/src/04-Infra/Akasia.SQL/Publish
+/src/04-Infra/Akasia.SQL/Akasia.SQL.dbmdl
+/src/04-Infra/Akasia.SQL/Akasia.SQL.jfm
 /src/05-API/Akasia.Grpc/obj
 /src/05-API/Akasia.Grpc/bin/Debug/net5.0
 /src/06-UI/Akasia.BlazorUI/bin/Debug/net5.0
@@ -27,4 +30,4 @@
 /src/07-Test/Akasia.ConsoleTest/obj
 /src/07-Test/Akasia.XUnitTest/obj
 /src/07-Test/Akasia.XUnitTest/bin/Debug/net5.0
-
+/src/05-API/Akasia.Grpc/appsettings.Development.json
