@@ -3,43 +3,69 @@ syntax = "proto3";
 option csharp_namespace = "Akasia.Grpc";
 
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 
 package blogpost;
 
 
 service BlogPostEndpoint {
-	rpc CreateBlogPost (CreateBlogPostRequest) returns (CreateBlogPostResponse);
-	rpc ReadBlogPost (google.protobuf.Empty) returns (ReadBlogPostResponse);
-	rpc ReadBlogPostStream (google.protobuf.Empty) returns (stream BlogPostObject);
-	rpc ReadBlogPostById (ReadBlogPostByIdRequest) returns (BlogPostObject);
-	rpc UpdateBlogPost (UpdateBlogPostRequest) returns (BlogPostObject);
+	rpc ReadAllBlogPost (google.protobuf.Empty) returns (ReadAllBlogPostResponse);
+	rpc ReadAllBlogPostStream (google.protobuf.Empty) returns (stream BlogPostModel);
+	rpc ReadBlogPostById (ReadBlogPostByIdRequest) returns (ReadBlogPostByIdResponse);
+	rpc CreateBlogPost (CreateBlogPostRequest) returns (TransactionResponse);
+	rpc UpdateBlogPost (UpdateBlogPostRequest) returns (TransactionResponse);
+	rpc DeleteBlogPost (DeleteBlogPostRequest) returns (TransactionResponse);
 }
 
-message CreateBlogPostRequest {
-	string title = 1;
-	string content = 2;
+message BaseProperty {
+	int32 id = 1;
+    bool isDeleted = 2;
+	string createdBy = 3;
+    google.protobuf.Timestamp createdDate = 4;
+    string modifiedBy = 5;
+    google.protobuf.Timestamp modifiedDate = 6;
 }
 
-message CreateBlogPostResponse {
-	int32 newId = 1;
+enum PostStatusProperty {
+	Draft = 0;   
+    Published = 1;
+    Trash = 2;     
+    Deleted = 3; 
 }
 
-message ReadBlogPostResponse {
-	repeated BlogPostObject blogPostObject = 1;
+message BlogPostModel {
+	BaseProperty baseProperty = 1;
+	string title = 2;
+    string content = 3;
+    google.protobuf.Timestamp postDate = 4;        
+    PostStatusProperty status = 5;
 }
 
-message BlogPostObject {
-	string title = 1;
-	string content = 2;
+message ReadAllBlogPostResponse {
+	repeated BlogPostModel blogPostModel = 1;
 }
 
 message ReadBlogPostByIdRequest {
-	int32 newId = 1;
+	int32 Id = 1;
 }
+
+message ReadBlogPostByIdResponse {
+	BlogPostModel blogPostModel = 1;
+}
+
+message CreateBlogPostRequest {
+	BlogPostModel blogPostModel = 1;
+} 
 
 message UpdateBlogPostRequest {
-	int32 newId = 1;
-	string title = 2;
-	string content = 3;
+	BlogPostModel blogPostModel = 1;
 }
 
+message DeleteBlogPostRequest {
+	int32 Id = 1;
+}
+
+message TransactionResponse {
+	string message = 1;
+	bool isOkay = 2;
+}

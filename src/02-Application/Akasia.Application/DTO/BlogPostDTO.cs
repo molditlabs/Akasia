@@ -6,7 +6,20 @@ using System.Text;
 
 namespace Akasia.Application.DTO
 {
-    public class CreateBlogPostRequestDTO
+    public class BlogPostBaseModelDTO
+    {
+        // Key
+        public int Id { get; set; }
+        // Row Attribute
+        public bool IsDeleted { get; set; }
+        // Audit Fields
+        public string CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+    }
+
+    public class BlogPostModelDTO : BlogPostBaseModelDTO
     {
         public string Title { get; set; }
         public string Content { get; set; }
@@ -14,33 +27,20 @@ namespace Akasia.Application.DTO
         public PostStatus Status { get; set; }
     }
 
-    public class CreateBlogPostResponseDTO
+    public class ReadAllBlogPostResponseDTO
     {
-        public int Id { get; set; }
+        public List<BlogPostModelDTO> BlogPostModelList { get; set; } = new List<BlogPostModelDTO>();
     }
-
-    public class ReadBlogPostResponseDTO
-    {
-        public string Title { get; set; }
-        public string Content { get; set; }
-    }
-
     public class ReadBlogPostByIdResponseDTO
     {
-        public string Title { get; set; }
-        public string Content { get; set; }
+        public BlogPostModelDTO BlogPostModelDTO { get; set; }
     }
-
-    public class UpdateBlogPostRequestDTO
+    public class CreateBlogPostRequestDTO : BlogPostModelDTO
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Content { get; set; }
+
     }
-
-    public class UpdateBlogPostResponseDTO
+    public class UpdateBlogPostRequestDTO : BlogPostModelDTO
     {
-        public string Title { get; set; }
-        public string Content { get; set; }
+        
     }
 }

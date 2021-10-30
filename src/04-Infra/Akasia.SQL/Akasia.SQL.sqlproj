@@ -71,6 +71,9 @@
     <Build Include="dbo\Stored Procedures\spReadBlogPost.sql" />
     <Build Include="dbo\Stored Procedures\spCreateBlogPost.sql" />
     <Build Include="dbo\Stored Procedures\spUpdateBlogPost.sql" />
+    <Build Include="dbo\Stored Procedures\spIsBlogPostExist.sql" />
+    <Build Include="dbo\Stored Procedures\spCheckTitleExist.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteBlogPost.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Publish\Akasia.SQL.publish.xml" />

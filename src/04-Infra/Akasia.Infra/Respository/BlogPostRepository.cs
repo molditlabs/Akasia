@@ -19,6 +19,16 @@ namespace Akasia.Infra.Respository
             _dbSession = dbSession;
         }
 
+        public async Task<bool> CheckTitleExistAsync(string title)
+        {
+            var queryParams = new
+            {
+                Title = title
+            };
+
+            return await _dbSession.Connection.ExecuteScalarAsync<bool>("spCheckTitleExist", queryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
+        }
+
         public async Task CreateAsync(BlogPost request)
         {
             var createQueryParams = new
@@ -30,19 +40,28 @@ namespace Akasia.Infra.Respository
             request.Id = await _dbSession.Connection.ExecuteScalarAsync<int>("spCreateBlogPost", createQueryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
         }
 
-        public Task DeleteAsync(BlogPost entity)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var queryParams = new
+            {
+                Id = id,
+            };
+            await _dbSession.Connection.ExecuteScalarAsync("spDeleteBlogPost", queryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
         }
 
-        public Task<bool> IsRecordExistAsync(int id)
+        public async Task<bool> IsRecordExistAsync(int id)
         {
-            throw new NotImplementedException();
+            var queryParams = new
+            {
+                Id = id
+            };
+
+            return await _dbSession.Connection.ExecuteScalarAsync<bool>("spIsBlogPostExist", queryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
         }
 
-        public async Task<IEnumerable<BlogPost>> ReadAsync()
+        public async Task<IEnumerable<BlogPost>> ReadAllAsync()
         {
-            var result = await _dbSession.Connection.QueryAsync<BlogPost>("spReadBlogPost", new { }, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
+            var result = await _dbSession.Connection.QueryAsync<BlogPost>("spReadAllBlogPost", new { }, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
             return result;
         }
 
@@ -64,8 +83,7 @@ namespace Akasia.Infra.Respository
                 Title = title,
                 Content = content
             };
-            await _dbSession.Connection.ExecuteScalarAsync<BlogPost>("spUpdateBlogPost", queryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
-
+            await _dbSession.Connection.ExecuteScalarAsync("spUpdateBlogPost", queryParams, _dbSession.Transaction, commandType: CommandType.StoredProcedure);
         }
     }
 }
