@@ -2,6 +2,7 @@
 	@Id int
 AS
 BEGIN
-	DELETE FROM BlogPost
+	UPDATE BlogPost
+	SET IsDeleted = 1
 	WHERE Id = @Id
 END
