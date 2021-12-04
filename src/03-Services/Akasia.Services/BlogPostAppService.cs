@@ -28,9 +28,9 @@ namespace Akasia.Services
 
             try
             {
-                _unitofwork.CreateTransaction();
+                //_unitofwork.CreateTransaction();
                 isExist = await _unitofwork.BlogPost.CheckTitleExistAsync(title);
-                _unitofwork.Commit();
+                //_unitofwork.Commit();
             }
             catch (Exception ex)
             {
@@ -88,9 +88,9 @@ namespace Akasia.Services
 
             try
             {
-                _unitofwork.CreateTransaction();
+                //_unitofwork.CreateTransaction();
                 isExist = await _unitofwork.BlogPost.IsRecordExistAsync(id);
-                _unitofwork.Commit();
+                //_unitofwork.Commit();
             }
             catch (Exception ex)
             {
@@ -106,9 +106,9 @@ namespace Akasia.Services
             ReadAllBlogPostResponseDTO blogPostDtoList = new ReadAllBlogPostResponseDTO();
             try
             {
-                _unitofwork.CreateTransaction();
+                //_unitofwork.CreateTransaction();
                 var blogPostList = await _unitofwork.BlogPost.ReadAllAsync();
-                _unitofwork.Commit();
+                //_unitofwork.Commit();
 
                 // Map list of BlogPost object to BlogPostModelDTO object and add to list
                 if (blogPostList.Any())
@@ -148,9 +148,9 @@ namespace Akasia.Services
 
             try
             {
-                _unitofwork.CreateTransaction();
+                //_unitofwork.CreateTransaction();
                 var blogPost = await _unitofwork.BlogPost.ReadByIdAsync(id);
-                _unitofwork.Commit();
+                //_unitofwork.Commit();
 
                 // If blog post exists, map BlogPost object to BlogPostModelDTO object
                 if (blogPost != null)

@@ -68,7 +68,7 @@
     <Build Include="dbo\Tables\__EFMigrationsHistory.sql" />
     <Build Include="dbo\Tables\BlogPost.sql" />
     <Build Include="dbo\Stored Procedures\spReadBlogPostById.sql" />
-    <Build Include="dbo\Stored Procedures\spReadBlogPost.sql" />
+    <Build Include="dbo\Stored Procedures\spReadAllBlogPost.sql" />
     <Build Include="dbo\Stored Procedures\spCreateBlogPost.sql" />
     <Build Include="dbo\Stored Procedures\spUpdateBlogPost.sql" />
     <Build Include="dbo\Stored Procedures\spIsBlogPostExist.sql" />
@@ -77,6 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Schema Compare\SqlSchemaCompare.scmp" />
-    <None Include="Publish\DSC-Akasia.SQL.publish.publish.xml" />
+    <None Include="Publish\Akasia.SQL.publish.xml" />
   </ItemGroup>
 </Project>
