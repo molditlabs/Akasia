@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "Akasia.Grpc";
+option csharp_namespace = "Akasia.Application.Protos";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";

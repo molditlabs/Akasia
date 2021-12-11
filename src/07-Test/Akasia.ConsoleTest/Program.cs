@@ -1,4 +1,4 @@
-﻿using Akasia.Grpc;
+﻿using Akasia.Application.Protos;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Grpc.Net.Client;
@@ -61,18 +61,18 @@ namespace Akasia.ConsoleTest
                 Console.WriteLine("Blog not found!");
             }
 
-            //Console.WriteLine();
-            //Console.WriteLine("Create Blog post");
-            //var createPostContent = new BlogPostModel
-            //{
-            //    Title = "Election day",
-            //    Content = "Who won?",
-            //};
-            //var createPostResponse = await client.CreateBlogPostAsync(new CreateBlogPostRequest { BlogPostModel = createPostContent });
-            //Console.WriteLine($"Message: {createPostResponse.Message}");
-            //Console.WriteLine($"IsOkay: {createPostResponse.IsOkay}");
+            Console.WriteLine();
+            Console.WriteLine("Create Blog post");
+            var createPostContent = new BlogPostModel
+            {
+                Title = "Election day",
+                Content = "Who won?",
+            };
+            var createPostResponse = await client.CreateBlogPostAsync(new CreateBlogPostRequest { BlogPostModel = createPostContent });
+            Console.WriteLine($"Message: {createPostResponse.Message}");
+            Console.WriteLine($"IsOkay: {createPostResponse.IsOkay}");
 
-            //Console.WriteLine();
+            Console.WriteLine();
 
             //Console.WriteLine("Update Blog post");
             //var updateBase = new BaseProperty
@@ -89,12 +89,12 @@ namespace Akasia.ConsoleTest
             //Console.WriteLine($"Message: {updatePostResponse.Message}");
             //Console.WriteLine($"IsOkay: {updatePostResponse.IsOkay}");
 
-            Console.WriteLine();
+            //Console.WriteLine();
 
-            Console.WriteLine("Delete Blog post");
-            var deletePostResponse = await client.DeleteBlogPostAsync(new DeleteBlogPostRequest { Id = 1002 });
-            Console.WriteLine($"Message: {deletePostResponse.Message}");
-            Console.WriteLine($"IsOkay: {deletePostResponse.IsOkay}");
+            //Console.WriteLine("Delete Blog post");
+            //var deletePostResponse = await client.DeleteBlogPostAsync(new DeleteBlogPostRequest { Id = 1002 });
+            //Console.WriteLine($"Message: {deletePostResponse.Message}");
+            //Console.WriteLine($"IsOkay: {deletePostResponse.IsOkay}");
 
 
 
