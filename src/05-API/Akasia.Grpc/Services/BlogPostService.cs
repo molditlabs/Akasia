@@ -1,6 +1,6 @@
 ﻿using Akasia.Application.DTO;
+using Akasia.Application.Protos;
 using Akasia.Application.Service;
-using Akasia.Domain.Entity;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;

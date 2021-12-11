@@ -1,0 +1,44 @@
+﻿@page "/blogpostweb"
+
+<h3>BlogPost</h3>
+
+<label>Title</label>
+<br />
+<input type="text" id="blog-post-title" @bind="@blogPostObject.Title" />
+<br />
+<label>Content</label>
+<br />
+<input type="text" id="blog-post-content"  @bind="@blogPostObject.Content" />
+<br />
+<button type="button" @onclick="AddBlogPost">Add</button>
+@code {
+
+    BlogPostModel blogPostObject = new BlogPostModel
+    {
+        Title = "-",
+        Content = "-",
+    };
+
+    async Task AddBlogPost()
+    {
+        var httpHandler = new HttpClientHandler();
+        // Return `true` to allow certificates that are untrusted/invalid
+        httpHandler.ServerCertificateCustomValidationCallback =
+            HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+
+        // The port number(5001) must match the port of the gRPC server.
+        using var channel = GrpcChannel.ForAddress("https://localhost:5001", new GrpcChannelOptions { HttpHandler = httpHandler });
+        var client = new BlogPostEndpoint.BlogPostEndpointClient(channel);
+
+
+        var createPostResponse = await client.CreateBlogPostAsync(new CreateBlogPostRequest { BlogPostModel = blogPostObject });
+
+        blogPostObject = new BlogPostModel
+        {
+            Title = "-",
+            Content = "-",
+        };
+
+        await channel.ShutdownAsync();
+    }
+}
